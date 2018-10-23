@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.0.001">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.0.001" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="read_excel" compatibility="9.0.001" expanded="true" height="68" name="Read Excel" width="90" x="45" y="85">
+        <parameter key="excel_file" value="/Users/devx/Documents/devx/Data Mining Practical/DM-Data-Practical-1-16/AutoMpg_question2_a.xls"/>
+        <parameter key="sheet_selection" value="sheet number"/>
+        <parameter key="sheet_number" value="1"/>
+        <parameter key="imported_cell_range" value="A1"/>
+        <parameter key="encoding" value="SYSTEM"/>
+        <parameter key="first_row_as_names" value="true"/>
+        <list key="annotations"/>
+        <parameter key="date_format" value="MMM d, yyyy h:mm:ss a z"/>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="read_all_values_as_polynominal" value="false"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="horsepower.true.integer.attribute"/>
+          <parameter key="1" value="origin.true.integer.attribute"/>
+          <parameter key="2" value="mpg.true.integer.attribute"/>
+          <parameter key="3" value="cylinders.true.integer.attribute"/>
+          <parameter key="4" value="displacement.true.real.attribute"/>
+          <parameter key="5" value="weight.true.integer.attribute"/>
+          <parameter key="6" value="acceleration.true.real.attribute"/>
+          <parameter key="7" value="model year.true.integer.attribute"/>
+          <parameter key="8" value="car name.true.polynominal.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="false"/>
+        <parameter key="datamanagement" value="double_array"/>
+        <parameter key="data_management" value="auto"/>
+      </operator>
+      <operator activated="true" class="read_excel" compatibility="9.0.001" expanded="true" height="68" name="Read Excel (2)" width="90" x="45" y="238">
+        <parameter key="excel_file" value="/Users/devx/Documents/devx/Data Mining Practical/DM-Data-Practical-1-16/AutoMpg_question2_b.xls"/>
+        <parameter key="sheet_selection" value="sheet number"/>
+        <parameter key="sheet_number" value="1"/>
+        <parameter key="imported_cell_range" value="A1"/>
+        <parameter key="encoding" value="SYSTEM"/>
+        <parameter key="first_row_as_names" value="true"/>
+        <list key="annotations"/>
+        <parameter key="date_format" value="MMM d, yyyy h:mm:ss a z"/>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="read_all_values_as_polynominal" value="false"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="horsepower.true.integer.attribute"/>
+          <parameter key="1" value="origin.true.integer.attribute"/>
+          <parameter key="2" value="mpg.true.integer.attribute"/>
+          <parameter key="3" value="cylinders.true.integer.attribute"/>
+          <parameter key="4" value="displacement.true.real.attribute"/>
+          <parameter key="5" value="weight.true.integer.attribute"/>
+          <parameter key="6" value="acceleration.true.real.attribute"/>
+          <parameter key="7" value="model year.true.integer.attribute"/>
+          <parameter key="8" value="name.true.polynominal.attribute"/>
+          <parameter key="9" value="other.true.integer.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="false"/>
+        <parameter key="datamanagement" value="double_array"/>
+        <parameter key="data_management" value="auto"/>
+      </operator>
+      <operator activated="true" class="rename" compatibility="9.0.001" expanded="true" height="82" name="Rename" width="90" x="246" y="238">
+        <parameter key="old_name" value="name"/>
+        <parameter key="new_name" value="car name"/>
+        <list key="rename_additional_attributes"/>
+      </operator>
+      <operator activated="true" class="generate_attributes" compatibility="9.0.001" expanded="true" height="82" name="Generate Attributes" width="90" x="246" y="85">
+        <list key="function_descriptions">
+          <parameter key="other" value="1"/>
+        </list>
+        <parameter key="keep_all" value="true"/>
+      </operator>
+      <operator activated="true" class="append" compatibility="9.0.001" expanded="true" height="103" name="Append" width="90" x="447" y="187">
+        <parameter key="datamanagement" value="double_array"/>
+        <parameter key="data_management" value="auto"/>
+        <parameter key="merge_type" value="all"/>
+      </operator>
+      <operator activated="true" class="write_excel" compatibility="9.0.001" expanded="true" height="82" name="Write Excel" width="90" x="648" y="187">
+        <parameter key="excel_file" value="/Users/devx/Documents/devx/Data Mining Practical/18200118 COMP40370 1.zip/AutoMpg question2 answer.xls"/>
+        <parameter key="file_format" value="xls"/>
+        <parameter key="encoding" value="SYSTEM"/>
+        <parameter key="sheet_name" value="RapidMiner Data"/>
+        <parameter key="date_format" value="yyyy-MM-dd HH:mm:ss"/>
+        <parameter key="number_format" value="#.0"/>
+      </operator>
+      <connect from_op="Read Excel" from_port="output" to_op="Generate Attributes" to_port="example set input"/>
+      <connect from_op="Read Excel (2)" from_port="output" to_op="Rename" to_port="example set input"/>
+      <connect from_op="Rename" from_port="example set output" to_op="Append" to_port="example set 2"/>
+      <connect from_op="Generate Attributes" from_port="example set output" to_op="Append" to_port="example set 1"/>
+      <connect from_op="Append" from_port="merged set" to_op="Write Excel" to_port="input"/>
+      <connect from_op="Write Excel" from_port="through" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <description align="center" color="yellow" colored="false" height="53" resized="true" width="166" x="213" y="343">Renaming name to car name.</description>
+      <description align="center" color="yellow" colored="false" height="52" resized="true" width="153" x="418" y="312">Appending two data sets</description>
+      <description align="center" color="yellow" colored="false" height="55" resized="true" width="140" x="25" y="169">Reading AutoMpg question 2 a.xls</description>
+      <description align="center" color="yellow" colored="false" height="60" resized="true" width="132" x="615" y="308">Writning and Exporting excel File</description>
+      <description align="center" color="yellow" colored="false" height="55" resized="false" width="140" x="22" y="337">Reading AutoMpg question 2 b.xls</description>
+      <description align="center" color="yellow" colored="false" height="50" resized="true" width="114" x="233" y="176">generating other attribute</description>
+    </process>
+  </operator>
+</process>

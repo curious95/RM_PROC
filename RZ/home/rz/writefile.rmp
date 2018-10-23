@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="8.1.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="8.1.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="open_file" compatibility="8.1.000" expanded="true" height="68" name="Open File" width="90" x="45" y="136">
+        <parameter key="resource_type" value="file"/>
+        <parameter key="filename" value="%{homeDir}"/>
+      </operator>
+      <operator activated="true" class="write_file" compatibility="8.1.000" expanded="true" height="68" name="Write File" width="90" x="246" y="136">
+        <parameter key="resource_type" value="file"/>
+        <parameter key="filename" value="%{fileName}"/>
+        <parameter key="mime_type" value="application/octet-stream"/>
+      </operator>
+      <connect from_op="Open File" from_port="file" to_op="Write File" to_port="file"/>
+      <connect from_op="Write File" from_port="file" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>
