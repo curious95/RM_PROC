@@ -118,7 +118,7 @@
       </operator>
       <operator activated="true" class="create_association_rules" compatibility="8.2.000" expanded="true" height="82" name="Create Association Rules" width="90" x="782" y="34">
         <parameter key="criterion" value="confidence"/>
-        <parameter key="min_confidence" value="0.8"/>
+        <parameter key="min_confidence" value="0.7"/>
         <parameter key="min_criterion_value" value="0.8"/>
         <parameter key="gain_theta" value="2.0"/>
         <parameter key="laplace_k" value="1.0"/>
