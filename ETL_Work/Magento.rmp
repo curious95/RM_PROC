@@ -13,8 +13,9 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="concurrency:loop_files" compatibility="8.2.000" expanded="true" height="82" name="Loop Files" width="90" x="45" y="34">
-        <parameter key="directory" value="/Users/devx/Documents/devx/UpWork/Niels/WooCommerce/wooproc"/>
-        <parameter key="filter_type" value="glob"/>
+        <parameter key="directory" value="/Users/devx/Documents/devx/UpWork/Niels/Dataset.2/toProc/proc"/>
+        <parameter key="filter_type" value="regex"/>
+        <parameter key="filter_by_regex" value="[A-z 0-9 . -]*[.](csv)"/>
         <parameter key="recursive" value="false"/>
         <parameter key="enable_macros" value="true"/>
         <parameter key="macro_for_file_name" value="file_name"/>
@@ -23,6 +24,10 @@
         <parameter key="reuse_results" value="false"/>
         <parameter key="enable_parallel_execution" value="true"/>
         <process expanded="true">
+          <operator activated="true" class="set_macro" compatibility="8.2.000" expanded="true" height="82" name="Set Macro" width="90" x="45" y="85">
+            <parameter key="macro" value="m_name"/>
+            <parameter key="value" value="%{file_name}"/>
+          </operator>
           <operator activated="true" class="read_csv" compatibility="8.2.000" expanded="true" height="68" name="1.2 (2)" width="90" x="179" y="136">
             <parameter key="csv_file" value="/Users/devx/Documents/devx/UpWork/Niels/Magento/Magento_Processed/1.2.csv"/>
             <parameter key="column_separators" value=","/>
@@ -89,7 +94,8 @@
             </list>
             <parameter key="keep_all" value="true"/>
           </operator>
-          <connect from_port="file object" to_op="1.2 (2)" to_port="file"/>
+          <connect from_port="file object" to_op="Set Macro" to_port="through 1"/>
+          <connect from_op="Set Macro" from_port="through 1" to_op="1.2 (2)" to_port="file"/>
           <connect from_op="1.2 (2)" from_port="output" to_op="Generate Attributes" to_port="example set input"/>
           <connect from_op="Generate Attributes" from_port="example set output" to_port="output 1"/>
           <portSpacing port="source_file object" spacing="0"/>
@@ -178,7 +184,7 @@
         <parameter key="include_special_attributes" value="false"/>
       </operator>
       <operator activated="true" class="write_csv" compatibility="8.2.000" expanded="true" height="82" name="Write CSV" width="90" x="581" y="442">
-        <parameter key="csv_file" value="/Users/devx/Documents/devx/UpWork/Niels/Magento/Magento_Processed/woocom_upload.csv"/>
+        <parameter key="csv_file" value="/Users/devx/Documents/devx/UpWork/Niels/Dataset.2/proc_upload.csv"/>
         <parameter key="column_separator" value=","/>
         <parameter key="write_attribute_names" value="true"/>
         <parameter key="quote_nominal_values" value="true"/>
